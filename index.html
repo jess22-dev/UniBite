@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNIBITE – Come rico cerca de CU, ahorra y rescata comida</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  colors: { em: { DEFAULT:'#10B981', dark:'#059669', soft:'#D1FAE5' }, am: { DEFAULT:'#F59E0B', dark:'#D97706', soft:'#FEF3C7' }, ink:'#064E3B', mist:'#F9FAFB' },
+  fontFamily: { sans: ['"Plus Jakarta Sans"','system-ui','sans-serif'] }
+}}}
+</script>
+<style>
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  .btn { transition: transform .15s, box-shadow .15s, background-color .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:active { transform: translateY(0) scale(.98); }
+  :focus-visible { outline: 3px solid #F59E0B; outline-offset: 2px; }
+  @keyframes bob { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  .bob { animation: bob 4s ease-in-out infinite; }
+  .bob2 { animation: bob 5s ease-in-out infinite .8s; }
+  @keyframes pop { from{opacity:0;transform:scale(.94) translateY(8px)} to{opacity:1;transform:none} }
+  .pop { animation: pop .25s ease-out; }
+  @media (prefers-reduced-motion: reduce) { .bob,.bob2,.pop { animation:none } html{scroll-behavior:auto} .btn{transition:none} }
+</style>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased">
+
+<!-- NAVBAR -->
+<header class="sticky top-0 z-40 bg-white/90 backdrop-blur border-b border-slate-100">
+  <nav class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4" aria-label="Principal">
+    <a href="#inicio" class="flex items-center gap-2 font-extrabold text-xl text-ink">
+      <svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#10B981"/><path d="M9 21c0-6 4-10 13-10 0 8-4 12-10 12" fill="#fff"/><path d="M9 24c3-5 6-8 10-10" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" fill="none"/></svg>
+      UNIBITE
+    </a>
+    <div class="hidden lg:flex items-center gap-6 text-sm font-semibold text-slate-600">
+      <a class="hover:text-em-dark" href="#inicio">Inicio</a>
+      <a class="hover:text-em-dark" href="#como">Cómo funciona</a>
+      <a class="hover:text-em-dark" href="#ofertas">Ofertas en CU</a>
+      <a class="hover:text-em-dark" href="#impacto">Impacto</a>
+      <a class="hover:text-em-dark" href="#locales">Únete como local</a>
+    </div>
+    <div class="hidden md:flex items-center gap-2">
+      <button data-modal="modal-estudiante" class="btn px-4 py-2 rounded-full bg-em text-white font-bold text-sm shadow-sm hover:bg-em-dark">Soy Estudiante</button>
+      <button data-modal="modal-local" class="btn px-4 py-2 rounded-full border-2 border-am text-am-dark font-bold text-sm hover:bg-am-soft">Registrar mi Local</button>
+    </div>
+    <button id="menuBtn" class="lg:hidden p-2 rounded-lg hover:bg-slate-100" aria-label="Abrir menú" aria-expanded="false">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
+  <div id="menu" class="hidden lg:hidden border-t border-slate-100 bg-white px-4 py-3 space-y-1 text-sm font-semibold">
+    <a class="block py-2" href="#inicio">Inicio</a><a class="block py-2" href="#como">Cómo funciona</a><a class="block py-2" href="#ofertas">Ofertas en CU</a><a class="block py-2" href="#impacto">Impacto</a><a class="block py-2" href="#locales">Únete como local</a>
+    <div class="flex gap-2 pt-2">
+      <button data-modal="modal-estudiante" class="flex-1 px-4 py-2.5 rounded-full bg-em text-white font-bold">Soy Estudiante</button>
+      <button data-modal="modal-local" class="flex-1 px-4 py-2.5 rounded-full border-2 border-am text-am-dark font-bold">Registrar mi Local</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="inicio" class="relative overflow-hidden bg-gradient-to-b from-em-soft/60 to-white">
+  <div class="max-w-6xl mx-auto px-4 py-12 lg:py-20 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <span class="inline-flex items-center gap-2 bg-am-soft text-am-dark text-sm font-bold px-3 py-1 rounded-full">🔥 Ofertas relámpago activas ahora en CU</span>
+      <h1 class="mt-4 text-4xl sm:text-5xl font-extrabold leading-tight text-ink">Come delicioso cerca de CU, ahorra dinero y salva comida del desperdicio.</h1>
+      <p class="mt-4 text-lg text-slate-600 max-w-xl">Reserva <strong>Cajas Sorpresa</strong> con los excedentes del día a mitad de precio, y usa <strong>cupones fijos</strong> con tu credencial universitaria en las fondas y cafeterías de siempre.</p>
+
+      <form id="heroSearch" class="mt-7 bg-white rounded-2xl shadow-lg shadow-emerald-900/10 border border-slate-100 p-2 grid sm:grid-cols-[1fr_1fr_auto] gap-2">
+        <label class="sr-only" for="hZona">Facultad o zona</label>
+        <select id="hZona" class="rounded-xl px-3 py-3 bg-mist text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-am">
+          <option value="">📍 Cualquier facultad / zona</option>
+          <option>Ingeniería</option><option>Ciencias</option><option>Contaduria</option><option>Arquitectura</option><option>Administración</option><option>Derecho</option>
+        </select>
+        <label class="sr-only" for="hCat">Categoría</label>
+        <select id="hCat" class="rounded-xl px-3 py-3 bg-mist text-sm font-semibold focus:outline-none focus-visible:ring-2 focus-visible:ring-am">
+          <option value="">🍽️ Todas las categorías</option>
+          <option>Fondas</option><option>Cafeterías</option><option>Panaderías</option><option>Comida Rápida</option>
+        </select>
+        <button class="btn rounded-xl bg-am hover:bg-am-dark text-white font-bold px-6 py-3">Buscar</button>
+      </form>
+      <div class="mt-4 flex flex-wrap gap-2 text-sm">
+        <button class="quick btn px-3 py-1.5 rounded-full bg-white border border-slate-200 font-semibold hover:border-em" data-cat="Fondas">🍲 Fondas</button>
+        <button class="quick btn px-3 py-1.5 rounded-full bg-white border border-slate-200 font-semibold hover:border-em" data-cat="Cafeterías">☕ Cafeterías</button>
+        <button class="quick btn px-3 py-1.5 rounded-full bg-white border border-slate-200 font-semibold hover:border-em" data-cat="Panaderías">🥐 Panaderías</button>
+        <button class="quick btn px-3 py-1.5 rounded-full bg-white border border-slate-200 font-semibold hover:border-em" data-cat="Comida Rápida">🌮 Comida Rápida</button>
+      </div>
+    </div>
+
+    <!-- Ilustración -->
+    <div class="relative mx-auto w-full max-w-md" aria-hidden="true">
+      <svg viewBox="0 0 400 400" class="w-full h-auto">
+        <circle cx="200" cy="200" r="180" fill="#D1FAE5"/>
+        <circle cx="200" cy="200" r="130" fill="#A7F3D0" opacity=".6"/>
+        <ellipse cx="200" cy="330" rx="120" ry="16" fill="#065F46" opacity=".15"/>
+        <path d="M95 190h210l-14 130a14 14 0 0 1-14 12H123a14 14 0 0 1-14-12z" fill="#F59E0B"/>
+        <path d="M95 190h210l-4 36H99z" fill="#D97706" opacity=".35"/>
+        <rect x="80" y="168" width="240" height="34" rx="12" fill="#FBBF24"/>
+        <path d="M120 200c-8-30 6-50 30-52 6-24 40-30 54-8 22-10 46 6 40 30 14 6 18 22 6 30z" fill="#10B981"/>
+        <circle cx="170" cy="158" r="14" fill="#EF4444"/><circle cx="232" cy="150" r="12" fill="#F59E0B"/>
+        <rect x="150" y="238" width="100" height="56" rx="14" fill="#fff"/>
+        <text x="200" y="262" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#065F46">CAJA</text>
+        <text x="200" y="280" text-anchor="middle" font-family="Plus Jakarta Sans" font-weight="800" font-size="13" fill="#D97706">SORPRESA</text>
+      </svg>
+      <div class="bob absolute -top-1 right-2 bg-white shadow-xl rounded-2xl px-3 py-2 flex items-center gap-2"><span class="text-2xl">🥑</span><div class="text-xs"><b class="block text-ink">50% menos</b>hoy 6:30 pm</div></div>
+      <div class="bob2 absolute bottom-10 -left-2 bg-white shadow-xl rounded-2xl px-3 py-2 flex items-center gap-2"><span class="text-2xl">🎓</span><div class="text-xs"><b class="block text-ink">-20% con credencial</b>Cafetería Contaduria</div></div>
+      <div class="bob absolute top-1/3 -left-4 text-4xl">🥐</div>
+      <div class="bob2 absolute top-12 left-10 text-3xl">🍅</div>
+      <div class="bob absolute bottom-24 right-0 text-4xl">🌮</div>
+    </div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section id="como" class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl font-extrabold text-ink text-center">Cómo funciona</h2>
+    <p class="text-center text-slate-600 mt-2">De tu salón a tu comida en tres pasos.</p>
+    <ol class="mt-10 grid md:grid-cols-3 gap-6">
+      <li class="bg-mist rounded-3xl p-6 border border-slate-100">
+        <div class="w-12 h-12 rounded-2xl bg-em text-white font-extrabold text-xl grid place-items-center">1</div>
+        <h3 class="mt-4 font-bold text-lg text-ink">Explora ofertas cerca de tu facultad</h3>
+        <p class="mt-1 text-slate-600">Descubre ofertas relámpago de rescate y descuentos estudiantiles a pocos minutos caminando.</p>
+      </li>
+      <li class="bg-mist rounded-3xl p-6 border border-slate-100">
+        <div class="w-12 h-12 rounded-2xl bg-am text-white font-extrabold text-xl grid place-items-center">2</div>
+        <h3 class="mt-4 font-bold text-lg text-ink">Reserva o activa tu cupón</h3>
+        <p class="mt-1 text-slate-600">Aparta tu Caja Sorpresa o activa tu cupón desde la plataforma, sin filas ni efectivo.</p>
+      </li>
+      <li class="bg-mist rounded-3xl p-6 border border-slate-100">
+        <div class="w-12 h-12 rounded-2xl bg-em text-white font-extrabold text-xl grid place-items-center">3</div>
+        <h3 class="mt-4 font-bold text-lg text-ink">Recoge y disfruta</h3>
+        <p class="mt-1 text-slate-600">Pasa por tu comida en el horario indicado, muestra tu código y a comer.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- CATÁLOGO -->
+<section id="ofertas" class="py-16 bg-mist">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+      <div>
+        <h2 class="text-3xl font-extrabold text-ink">Ofertas en CU, ahora mismo</h2>
+        <p class="text-slate-600 mt-1">Muestra de locales ficticios para la demo. Prueba los filtros y reserva.</p>
+      </div>
+      <div role="tablist" aria-label="Tipo de oferta" class="inline-flex bg-white rounded-full p-1 shadow-sm border border-slate-100 self-start">
+        <button role="tab" data-type="all" class="tab px-4 py-2 rounded-full text-sm font-bold">Todas</button>
+        <button role="tab" data-type="rescate" class="tab px-4 py-2 rounded-full text-sm font-bold">Cajas Sorpresa</button>
+        <button role="tab" data-type="descuento" class="tab px-4 py-2 rounded-full text-sm font-bold">Descuento estudiantil</button>
+      </div>
+    </div>
+    <div id="chips" class="mt-5 flex flex-wrap gap-2"></div>
+    <p id="count" class="mt-4 text-sm text-slate-500" aria-live="polite"></p>
+    <div id="grid" class="mt-4 grid sm:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    <div id="empty" class="hidden text-center py-12">
+      <div class="text-5xl">🔍</div>
+      <p class="mt-2 font-bold text-ink">No hay ofertas con esos filtros</p>
+      <button id="reset" class="btn mt-3 px-5 py-2 rounded-full bg-em text-white font-bold">Ver todas las ofertas</button>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACTO -->
+<section id="impacto" class="py-16 bg-ink text-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl font-extrabold max-w-2xl">Cada caja rescatada cuenta para el campus y para tu bolsillo.</h2>
+    <div class="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="bg-white/10 rounded-3xl p-5"><div class="text-3xl">🍱</div><div class="mt-2 text-3xl sm:text-4xl font-extrabold text-am"><span data-count="1250" data-prefix="+">0</span></div><p class="text-sm text-emerald-100">comidas rescatadas</p></div>
+      <div class="bg-white/10 rounded-3xl p-5"><div class="text-3xl">🌎</div><div class="mt-2 text-3xl sm:text-4xl font-extrabold text-am"><span data-count="2.4" data-dec="1">0</span> t</div><p class="text-sm text-emerald-100">de CO₂ evitadas</p></div>
+      <div class="bg-white/10 rounded-3xl p-5"><div class="text-3xl">🏪</div><div class="mt-2 text-3xl sm:text-4xl font-extrabold text-am"><span data-count="35" data-prefix="+">0</span></div><p class="text-sm text-emerald-100">comercios locales apoyados</p></div>
+      <div class="bg-white/10 rounded-3xl p-5"><div class="text-3xl">💸</div><div class="mt-2 text-3xl sm:text-4xl font-extrabold text-am"><span data-count="45000" data-prefix="$">0</span></div><p class="text-sm text-emerald-100">MXN ahorrados por estudiantes</p></div>
+    </div>
+    <div class="mt-10 grid md:grid-cols-2 gap-8 text-emerald-50">
+      <p>Cada día, fondas, cafeterías y panaderías cierran con comida en perfecto estado que termina en la basura. UNIBITE la convierte en cajas sorpresa a mitad de precio, así evitamos emisiones y damos un uso a lo que ya se cocinó.</p>
+      <p>Para la economía estudiantil y familiar, comer bien deja de ser un gasto pesado: ahorras en cada reserva y tu dinero se queda en los negocios del barrio universitario. <em class="opacity-70">(Cifras simuladas para la demo.)</em></p>
+    </div>
+  </div>
+</section>
+
+<!-- TECNOLOGÍA -->
+<section class="py-16 bg-white">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-3xl font-extrabold text-ink text-center">Hecho para la vida universitaria</h2>
+    <div class="mt-10 grid md:grid-cols-3 gap-6">
+      <article class="rounded-3xl p-6 border border-slate-100 bg-mist">
+        <div class="w-14 h-14 rounded-2xl bg-em-soft grid place-items-center text-3xl">📍</div>
+        <h3 class="mt-4 font-bold text-lg text-ink">Geolocalización inteligente</h3>
+        <p class="mt-1 text-slate-600">Te mostramos primero lo que está a minutos de tu facultad o puerta de CU, con tiempo real caminando.</p>
+      </article>
+      <article class="rounded-3xl p-6 border border-slate-100 bg-mist">
+        <div class="w-14 h-14 rounded-2xl bg-am-soft grid place-items-center text-3xl">🔔</div>
+        <h3 class="mt-4 font-bold text-lg text-ink">Avisos de última hora</h3>
+        <p class="mt-1 text-slate-600">Recibe una notificación cuando tu local favorito libere excedentes, antes de que se agoten.</p>
+      </article>
+      <article class="rounded-3xl p-6 border border-slate-100 bg-mist">
+        <div class="w-14 h-14 rounded-2xl bg-em-soft grid place-items-center text-3xl">🔒</div>
+        <h3 class="mt-4 font-bold text-lg text-ink">Pagos y datos protegidos</h3>
+        <p class="mt-1 text-slate-600">Pagos cifrados y datos estudiantiles tratados conforme al aviso de privacidad. Tú decides qué compartes.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ÚNETE COMO LOCAL -->
+<section id="locales" class="py-16 bg-am-soft/60">
+  <div class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center">
+    <div>
+      <h2 class="text-3xl font-extrabold text-ink">¿Tienes una fonda o cafetería cerca de CU?</h2>
+      <p class="mt-3 text-slate-700 max-w-lg">Convierte lo que sobra al cierre en ingresos y llena tus horas más lentas con estudiantes hambrientos.</p>
+      <button data-modal="modal-local" class="btn mt-6 px-7 py-3.5 rounded-full bg-am hover:bg-am-dark text-white font-bold text-lg shadow-lg shadow-amber-600/20">Quiero afiliar mi negocio</button>
+    </div>
+    <ul class="grid gap-4">
+      <li class="flex gap-4 bg-white rounded-2xl p-5 shadow-sm"><span class="text-3xl">💰</span><div><b class="text-ink">Recupera el costo de lo no vendido</b><p class="text-slate-600 text-sm">Cada caja convierte un excedente en dinero.</p></div></li>
+      <li class="flex gap-4 bg-white rounded-2xl p-5 shadow-sm"><span class="text-3xl">🎓</span><div><b class="text-ink">Atrae nuevos clientes universitarios</b><p class="text-slate-600 text-sm">Llega a estudiantes en tus horas valle.</p></div></li>
+      <li class="flex gap-4 bg-white rounded-2xl p-5 shadow-sm"><span class="text-3xl">♻️</span><div><b class="text-ink">Cero desperdicio</b><p class="text-slate-600 text-sm">Reduce merma y suma a tu imagen sustentable.</p></div></li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-slate-300 pt-12 pb-8">
+  <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-3 gap-8">
+    <div>
+      <div class="flex items-center gap-2 font-extrabold text-xl text-white">
+        <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><rect width="32" height="32" rx="10" fill="#10B981"/><path d="M9 21c0-6 4-10 13-10 0 8-4 12-10 12" fill="#fff"/></svg> UNIBITE
+      </div>
+      <p class="mt-3 text-sm max-w-xs">Rescatamos comida del día y conseguimos descuentos para estudiantes en los negocios que rodean Ciudad Universitaria.</p>
+    </div>
+    <div>
+      <h3 class="font-bold text-white">Legal</h3>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a href="#" class="hover:text-white" data-legal="Aviso de Privacidad (LFPDPPP)">Aviso de Privacidad (LFPDPPP)</a></li>
+        <li><a href="#" class="hover:text-white" data-legal="Términos y Condiciones de Manejo de Alimentos (NOM-251)">Términos y Condiciones de Manejo de Alimentos (NOM-251)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="font-bold text-white">Contacto</h3>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li>hola@unibite.demo</li>
+        <li class="flex gap-4"><a href="#" class="hover:text-white">Instagram</a><a href="#" class="hover:text-white">TikTok</a><a href="#" class="hover:text-white">X</a></li>
+      </ul>
+    </div>
+  </div>
+  <p class="mt-10 text-center text-xs text-slate-500 px-4">Prototipo demostrativo desarrollado para proyecto académico.</p>
+</footer>
+
+<!-- MODAL GENÉRICO -->
+<div id="overlay" class="hidden fixed inset-0 z-50 bg-slate-900/60 p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div id="mBox" class="pop bg-white rounded-3xl max-w-md mx-auto mt-16 p-6 shadow-2xl relative">
+    <button id="mClose" class="absolute top-3 right-3 w-9 h-9 rounded-full hover:bg-slate-100 text-xl" aria-label="Cerrar">✕</button>
+    <div id="mBody"></div>
+  </div>
+</div>
+
+<script>
+const offers = [
+  { id:1, name:'Fonda Doña Mary', cat:'Fondas', type:'rescate', emoji:'🍲', bg:'from-amber-100 to-orange-200', walk:'A 3 min de Puerta 4', zona:'Ingeniería', old:90, now:45, hours:'Hoy 5:30 – 6:30 pm', stock:3, desc:'Comida corrida del día: sopa, guisado y agua.' },
+  { id:2, name:'Café Contaduria', cat:'Cafeterías', type:'descuento', emoji:'☕', bg:'from-stone-100 to-amber-200', walk:'A 2 min de Facultad de Filosofía', zona:'Filosofía y Letras', old:75, now:60, hours:'Lun–Vie 8:00 am – 8:00 pm', stock:50, desc:'20% en bebidas y sándwiches con credencial vigente.' },
+  { id:3, name:'Panadería La Espiga de CU', cat:'Panaderías', type:'rescate', emoji:'🥐', bg:'from-yellow-100 to-amber-300', walk:'A 5 min de Puerta 1', zona:'Economía', old:100, now:50, hours:'Hoy 7:00 – 8:00 pm', stock:5, desc:'Surtido de 6 piezas de pan dulce y salado del día.' },
+  { id:4, name:'Tacos y Guisados El Inge', cat:'Comida Rápida', type:'descuento', emoji:'🌮', bg:'from-red-100 to-orange-200', walk:'A 4 min de Facultad de Ingeniería', zona:'Ingeniería', old:70, now:56, hours:'Lun–Sáb 12:00 – 6:00 pm', stock:30, desc:'5 tacos de guisado + refresco con 20% de descuento.' },
+  { id:5, name:'Jugo & Baguette Express', cat:'Comida Rápida', type:'rescate', emoji:'🥖', bg:'from-lime-100 to-emerald-200', walk:'A 6 min de Medicina', zona:'Medicina', old:85, now:42, hours:'Hoy 6:00 – 7:00 pm', stock:2, desc:'Baguette del día y jugo natural al cierre.' },
+  { id:6, name:'Cocina Económica Las Palmas', cat:'Fondas', type:'descuento', emoji:'🍛', bg:'from-emerald-100 to-teal-200', walk:'A 3 min de Arquitectura', zona:'Arquitectura', old:80, now:60, hours:'Lun–Vie 1:00 – 5:00 pm', stock:40, desc:'Menú del día con 25% de descuento estudiantil.' },
+];
+const cats = ['Fondas','Cafeterías','Panaderías','Comida Rápida'];
+const state = { type:'all', cat:'', zona:'' };
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+
+function renderChips(){
+  $('#chips').innerHTML = ['',...cats].map(c => `<button data-cat="${c}" class="chip btn px-4 py-1.5 rounded-full text-sm font-semibold border ${state.cat===c?'bg-ink text-white border-ink':'bg-white border-slate-200 hover:border-em'}">${c||'Todas las categorías'}</button>`).join('');
+  $$('.chip').forEach(b => b.onclick = () => { state.cat = b.dataset.cat; render(); });
+}
+function render(){
+  $$('.tab').forEach(t => { const on = t.dataset.type===state.type; t.className = 'tab px-4 py-2 rounded-full text-sm font-bold ' + (on?'bg-em text-white':'text-slate-600 hover:text-em-dark'); t.setAttribute('aria-selected', on); });
+  renderChips();
+  const list = offers.filter(o => (state.type==='all'||o.type===state.type) && (!state.cat||o.cat===state.cat) && (!state.zona||o.zona===state.zona));
+  $('#count').textContent = state.zona ? `${list.length} oferta(s) · zona ${state.zona}` : `${list.length} oferta(s) disponibles`;
+  $('#empty').classList.toggle('hidden', list.length>0);
+  $('#grid').innerHTML = list.map(o => {
+    const rescate = o.type==='rescate', off = Math.round((1-o.now/o.old)*100), agotado = o.stock<=0;
+    const stockTxt = rescate ? (agotado?'Agotado':`¡Quedan ${o.stock} paquetes!`) : 'Cupón disponible hoy';
+    return `<article class="pop bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow border border-slate-100 flex flex-col">
+      <div class="relative h-36 bg-gradient-to-br ${o.bg} grid place-items-center text-6xl">${o.emoji}
+        <span class="absolute top-3 left-3 text-xs font-bold px-3 py-1 rounded-full ${rescate?'bg-em text-white':'bg-am text-white'}">${rescate?'Caja Sorpresa (Rescate)':'Descuento Estudiantil'}</span>
+        <span class="absolute top-3 right-3 bg-white text-ink text-xs font-extrabold px-2.5 py-1 rounded-full shadow">-${off}%</span>
+      </div>
+      <div class="p-5 flex flex-col flex-1">
+        <h3 class="font-bold text-lg text-ink">${o.name}</h3>
+        <p class="text-sm text-slate-500">${o.cat} · 🚶 ${o.walk}</p>
+        <p class="text-sm text-slate-600 mt-2">${o.desc}</p>
+        <p class="text-sm mt-2">🕒 ${o.hours}</p>
+        <div class="mt-3 flex items-baseline gap-2"><span class="text-2xl font-extrabold text-em-dark">$${o.now}</span><span class="line-through text-slate-400">$${o.old}</span><span class="text-xs text-slate-500">MXN</span></div>
+        <p class="mt-1 text-sm font-bold ${rescate&&o.stock<=3?'text-red-600':'text-slate-500'}">${stockTxt}</p>
+        <button data-id="${o.id}" ${agotado?'disabled':''} class="reserve btn mt-4 w-full py-3 rounded-full font-bold ${agotado?'bg-slate-200 text-slate-400 cursor-not-allowed':'bg-em hover:bg-em-dark text-white'}">${agotado?'Agotado':(rescate?'Reservar ahora':'Activar cupón')}</button>
+      </div></div></article>`;
+  }).join('');
+  $$('.reserve').forEach(b => b.onclick = () => reserve(+b.dataset.id));
+}
+
+// Modales
+const overlay = $('#overlay'); let lastFocus;
+function openModal(html){ lastFocus = document.activeElement; $('#mBody').innerHTML = html; overlay.classList.remove('hidden'); document.body.style.overflow='hidden'; $('#mClose').focus(); }
+function closeModal(){ overlay.classList.add('hidden'); document.body.style.overflow=''; lastFocus && lastFocus.focus(); }
+$('#mClose').onclick = closeModal;
+overlay.addEventListener('click', e => { if(e.target===overlay) closeModal(); });
+document.addEventListener('keydown', e => { if(e.key==='Escape' && !overlay.classList.contains('hidden')) closeModal(); });
+
+const modals = {
+  'modal-estudiante': `<div class="text-5xl">🎓</div><h3 id="mTitle" class="mt-2 text-2xl font-extrabold text-ink">Hola, estudiante</h3>
+    <p class="mt-2 text-slate-600">Crea tu cuenta con tu correo institucional y tu número de cuenta para ver ofertas cerca de tu facultad y activar tus descuentos.</p>
+    <ul class="mt-4 space-y-2 text-sm"><li>✅ Cajas Sorpresa desde $35 MXN</li><li>✅ Cupones exclusivos con credencial</li><li>✅ Alertas de excedentes de última hora</li></ul>
+    <button onclick="closeModal();location.hash='ofertas'" class="btn mt-6 w-full py-3 rounded-full bg-em text-white font-bold">Ver ofertas en CU</button>`,
+  'modal-local': `<div class="text-5xl">🏪</div><h3 id="mTitle" class="mt-2 text-2xl font-extrabold text-ink">Registra tu local</h3>
+    <p class="mt-2 text-slate-600 mb-4">Déjanos tus datos y te contactamos (formulario de demostración).</p>
+    <form onsubmit="event.preventDefault();this.parentNode.innerHTML='<div class=&quot;text-5xl&quot;>🎉</div><h3 id=&quot;mTitle&quot; class=&quot;mt-2 text-2xl font-extrabold text-ink&quot;>¡Solicitud recibida!</h3><p class=&quot;mt-2 text-slate-600&quot;>En una versión real, te contactaríamos en menos de 48 horas.</p><button onclick=&quot;closeModal()&quot; class=&quot;btn mt-6 w-full py-3 rounded-full bg-am text-white font-bold&quot;>Cerrar</button>'" class="space-y-3">
+      <label class="block text-sm font-semibold">Nombre del negocio<input required class="mt-1 w-full rounded-xl bg-mist px-3 py-2.5 border border-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-am"></label>
+      <label class="block text-sm font-semibold">Correo o WhatsApp<input required class="mt-1 w-full rounded-xl bg-mist px-3 py-2.5 border border-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-am"></label>
+      <button class="btn w-full py-3 rounded-full bg-am hover:bg-am-dark text-white font-bold">Enviar solicitud</button>
+    </form>`
+};
+$$('[data-modal]').forEach(b => b.onclick = () => { $('#menu').classList.add('hidden'); openModal(modals[b.dataset.modal]); });
+$$('[data-legal]').forEach(a => a.onclick = e => { e.preventDefault(); openModal(`<h3 id="mTitle" class="text-xl font-extrabold text-ink pr-8">${a.dataset.legal}</h3><p class="mt-3 text-slate-600">Documento demostrativo. En una versión real aquí se publicaría el texto legal completo del proyecto.</p>`); });
+
+function reserve(id){
+  const o = offers.find(x => x.id===id); if(!o || o.stock<=0) return;
+  const code = 'UB-' + Math.random().toString(36).slice(2,6).toUpperCase() + '-' + String(o.id).padStart(2,'0');
+  const rescate = o.type==='rescate';
+  if(rescate) o.stock--;
+  openModal(`<div class="text-5xl">✅</div><h3 id="mTitle" class="mt-2 text-2xl font-extrabold text-ink">${rescate?'¡Reserva confirmada!':'¡Cupón activado!'}</h3>
+    <p class="mt-2 text-slate-600"><b>${o.name}</b> · ${o.walk}</p>
+    <div class="mt-4 rounded-2xl border-2 border-dashed border-em bg-em-soft/50 p-4 text-center"><p class="text-sm text-slate-600">Tu código para mostrar en el local</p><p class="text-3xl font-extrabold tracking-wider text-ink mt-1">${code}</p></div>
+    <p class="mt-4 text-sm">🕒 ${o.hours}<br>💵 Pagas <b>$${o.now} MXN</b> (ahorras $${o.old-o.now})</p>
+    <p class="mt-3 text-xs text-slate-400">Reserva simulada para demostración.</p>
+    <button onclick="closeModal()" class="btn mt-5 w-full py-3 rounded-full bg-em text-white font-bold">Listo</button>`);
+  render();
+}
+
+// Filtros, buscador y tabs
+$$('.tab').forEach(t => t.onclick = () => { state.type = t.dataset.type; render(); });
+$('#reset').onclick = () => { Object.assign(state,{type:'all',cat:'',zona:''}); $('#hZona').value=''; $('#hCat').value=''; render(); };
+$('#heroSearch').onsubmit = e => { e.preventDefault(); state.zona=$('#hZona').value; state.cat=$('#hCat').value; render(); location.hash='ofertas'; };
+$$('.quick').forEach(b => b.onclick = () => { state.cat=b.dataset.cat; $('#hCat').value=b.dataset.cat; render(); location.hash='ofertas'; });
+
+// Menú móvil
+$('#menuBtn').onclick = () => { const m=$('#menu'); m.classList.toggle('hidden'); $('#menuBtn').setAttribute('aria-expanded', !m.classList.contains('hidden')); };
+$$('#menu a').forEach(a => a.onclick = () => $('#menu').classList.add('hidden'));
+
+// Contadores de impacto (se animan al aparecer)
+const fmt = (v,el) => (el.dataset.prefix||'') + (+el.dataset.dec ? v.toFixed(1) : Math.round(v).toLocaleString('es-MX'));
+const io = new IntersectionObserver(es => es.forEach(en => {
+  if(!en.isIntersecting) return; io.unobserve(en.target);
+  const el = en.target, end = +el.dataset.count, t0 = performance.now();
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  (function tick(t){ const p = reduce?1:Math.min((t-t0)/1400,1); el.textContent = fmt(end*(1-Math.pow(1-p,3)), el); if(p<1) requestAnimationFrame(tick); })(t0);
+}), {threshold:.5});
+$$('[data-count]').forEach(el => { el.textContent = fmt(0,el); io.observe(el); });
+
+render();
+</script>
+</body>
+</html>
